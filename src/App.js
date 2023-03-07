@@ -10,7 +10,11 @@ function App() {
   const canvasRef = useRef(null);
   const connect = window.drawConnectors;
   var camera = null;
-
+  const [arrayIndex, setArrayIndex] = useState(0);
+  const [arrayImages, setArrayImages] = useState(["https://upload.wikimedia.org/wikipedia/commons/9/9d/Sunglasses_%28example%29.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/e/ea/Glasses_%28example%29.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/5/54/Twemoji2_1f576.svg"
+]);
   const onResults = async (model) => {
     if(typeof webcamRef.current !== "undefined" && webcamRef.current !== null && webcamRef.current.video.readyState === 4){
       const video = webcamRef.current.video;
@@ -32,7 +36,7 @@ function App() {
       console.log(model);
       if(model.multiFaceLandmarks){
         for(const landmarks of model.multiFaceLandmarks){
-          drawConnectors(ctx, landmarks, Facemesh.FACEMESH_TESSELATION, {color: '#C0C0C070', lineWidth: 0.5})
+          /*drawConnectors(ctx, landmarks, Facemesh.FACEMESH_TESSELATION, {color: '#C0C0C070', lineWidth: 0.5})
           drawConnectors(ctx, landmarks, Facemesh.FACEMESH_RIGHT_EYE, {color: '#FFFFFF'});
           drawConnectors(ctx, landmarks, Facemesh.FACEMESH_RIGHT_IRIS, {color: '#C0C0C070'});
           drawConnectors(ctx, landmarks, Facemesh.FACEMESH_LEFT_EYE, {color: '#FFFFFF'});
@@ -40,13 +44,29 @@ function App() {
           drawConnectors(ctx, landmarks, Facemesh.FACEMESH_FACE_OVAL, {color: '#C0C0C070'});
           drawConnectors(ctx, landmarks, Facemesh.FACEMESH_LIPS, {color: '#FFFFFF'});
           drawConnectors(ctx, landmarks, Facemesh.FACEMESH_LEFT_EYEBROW, {color: '#FFFFFF'});
-          drawConnectors(ctx, landmarks, Facemesh.FACEMESH_RIGHT_EYEBROW, {color: '#FFFFFF'});
-        
+          drawConnectors(ctx, landmarks, Facemesh.FACEMESH_RIGHT_EYEBROW, {color: '#FFFFFF'});*/
+          const image = new Image();
+          image.src = arrayImages[arrayIndex];
+          image.onload = () => {
+            
+            ctx.drawImage(image, (landmarks[21].x*videoWidth), (landmarks[50].y*videoHeight)-50, 110, 50);
+          };
         }
       }
     }
   };
   
+  const changeFilter = () => {
+      if(arrayIndex === 3){
+        setArrayIndex(0);
+      }else{
+        setArrayIndex(arrayIndex+1);
+      }
+      var ctx = canvasRef.current.getContext("2d");
+      ctx.save();
+      ctx.clearRect(0,0, 640, 480);
+      
+  };
 
 
   useEffect(() => {
@@ -77,6 +97,10 @@ function App() {
 
   return (
     <div>
+      <div>
+        <button title="Change Filter" onClick={() => changeFilter()}>Change Filter </button>
+      </div>
+      <div>
       <Webcam
           ref={webcamRef}
           audio={false}
@@ -109,6 +133,7 @@ function App() {
           }}
           id="myCanvas"
         />
+        </div>
     </div>
   );
 }
