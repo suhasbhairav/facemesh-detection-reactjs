@@ -11,7 +11,15 @@ function App() {
   const connect = window.drawConnectors;
   var camera = null;
   const [arrayIndex, setArrayIndex] = useState(0);
-  const [arrayImages, setArrayImages] = useState(["https://upload.wikimedia.org/wikipedia/commons/9/9d/Sunglasses_%28example%29.svg",
+  const [arrayImages, setArrayImages] = useState([
+  "https://freesvg.org/img/HUMAN-HEART.png",
+  "https://upload.wikimedia.org/wikipedia/commons/9/9e/Lungs_diagram_simple.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/b/be/Stomach_icon.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/d/d4/Liver.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/6/62/Colon_scheme.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/f/f7/Small_intestine.svg",
+  "https://upload.wikimedia.org/wikipedia/commons/3/33/Human-brain.SVG",
+  "https://upload.wikimedia.org/wikipedia/commons/9/9d/Sunglasses_%28example%29.svg",
   "https://upload.wikimedia.org/wikipedia/commons/e/ea/Glasses_%28example%29.svg",
   "https://upload.wikimedia.org/wikipedia/commons/5/54/Twemoji2_1f576.svg"
 ]);
@@ -45,11 +53,65 @@ function App() {
           drawConnectors(ctx, landmarks, Facemesh.FACEMESH_LIPS, {color: '#FFFFFF'});
           drawConnectors(ctx, landmarks, Facemesh.FACEMESH_LEFT_EYEBROW, {color: '#FFFFFF'});
           drawConnectors(ctx, landmarks, Facemesh.FACEMESH_RIGHT_EYEBROW, {color: '#FFFFFF'});*/
+          
+
+          const image2 = new Image();
+          image2.src = arrayImages[1];
+          image2.onload = () => {
+            
+            //ctx.drawImage(image, (landmarks[21].x*videoWidth), (landmarks[50].y*videoHeight)-50, 110, 50);
+            ctx.drawImage(image2, (landmarks[70].x*videoWidth)-30, (landmarks[50].y*videoHeight)+80, image2.width/3, image2.height/3);
+            
+          };
+
           const image = new Image();
-          image.src = arrayImages[arrayIndex];
+          image.src = arrayImages[0];
           image.onload = () => {
             
-            ctx.drawImage(image, (landmarks[21].x*videoWidth), (landmarks[50].y*videoHeight)-50, 110, 50);
+            //ctx.drawImage(image, (landmarks[21].x*videoWidth), (landmarks[50].y*videoHeight)-50, 110, 50);
+            ctx.drawImage(image, (landmarks[71].x*videoWidth)-20, (landmarks[50].y*videoHeight)+90, image.width/3, image.height/3);
+            
+          };
+          const image3 = new Image();
+          image3.src = arrayImages[2];
+          image3.onload = () => {
+            
+            //ctx.drawImage(image, (landmarks[21].x*videoWidth), (landmarks[50].y*videoHeight)-50, 110, 50);
+            ctx.drawImage(image3, (landmarks[71].x*videoWidth), (landmarks[50].y*videoHeight)+180, image3.width/4, image3.height/4);
+            
+          };
+
+          const image4 = new Image();
+          image4.src = arrayImages[3];
+          image4.onload = () => {
+            
+            //ctx.drawImage(image, (landmarks[21].x*videoWidth), (landmarks[50].y*videoHeight)-50, 110, 50);
+            ctx.drawImage(image4, (landmarks[71].x*videoWidth)-20, (landmarks[50].y*videoHeight)+240, image4.width/2, image4.height/2);
+            
+          };
+          const image5 = new Image();
+          image5.src = arrayImages[4];
+          image5.onload = () => {
+            
+            //ctx.drawImage(image, (landmarks[21].x*videoWidth), (landmarks[50].y*videoHeight)-50, 110, 50);
+            ctx.drawImage(image5, (landmarks[71].x*videoWidth)-20, (landmarks[50].y*videoHeight)+280, image5.width/2, image5.height/2);
+            
+          };
+          const image6 = new Image();
+          image6.src = arrayImages[5];
+          image6.onload = () => {
+            
+            //ctx.drawImage(image, (landmarks[21].x*videoWidth), (landmarks[50].y*videoHeight)-50, 110, 50);
+            ctx.drawImage(image6, (landmarks[71].x*videoWidth)-20, (landmarks[50].y*videoHeight)+280, image6.width/2, image6.height/2);
+            
+          };
+          const image7 = new Image();
+          image7.src = arrayImages[6];
+          image7.onload = () => {
+            
+            //ctx.drawImage(image, (landmarks[21].x*videoWidth), (landmarks[50].y*videoHeight)-50, 110, 50);
+            ctx.drawImage(image7, (landmarks[71].x*videoWidth), (landmarks[50].y*videoHeight)-110, image7.width/11, image7.height/11);
+            
           };
         }
       }
@@ -87,8 +149,8 @@ function App() {
         onFrame:async () => {
           await faceMesh.send({image:webcamRef.current.video})
         },
-        width: 640,
-        height: 480
+        width: 980,
+        height: 760
       });
       camera.start();
     }
@@ -98,7 +160,7 @@ function App() {
   return (
     <div>
       <div>
-        <button title="Change Filter" onClick={() => changeFilter()}>Change Filter </button>
+        {/*<button title="Change Filter" onClick={() => changeFilter()}>Change Filter </button>*/}
       </div>
       <div>
       <Webcam
@@ -113,8 +175,8 @@ function App() {
             right: 0,
             textAlign: "center",
             zindex: 9,
-            width: 640,
-            height: 480,
+            width: 980,
+            height: 760,
           }}
         />
 
@@ -128,8 +190,8 @@ function App() {
             right: 0,
             textAlign: "center",
             zindex: 9,
-            width: 640,
-            height: 480,
+            width: 980,
+            height: 760,
           }}
           id="myCanvas"
         />
